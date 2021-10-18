@@ -3,10 +3,7 @@ function errorRate = SNRToErrorRate(N,dBSNR)
 %   Detailed explanation goes here
 thresholdValue = 0;
 
-data = gaussian(N);
-noiseData = noise(N, dBSNR);
-
-receivedSig = signalAdd(data, noiseData);
+receivedSig = generateData(N, dBSNR);
 
 thresholdOut = threshold(receivedSig, thresholdValue);
 
