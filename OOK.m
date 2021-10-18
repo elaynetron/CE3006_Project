@@ -3,7 +3,7 @@ function signal = OOK(data)
 %   Detailed explanation goes here
 carrierFreq = 10000;
 carrierSignal = cos(2*pi*carrierFreq);
-signal = data*carrierSignal;
+signal = data*carrierSignal; 
 
 end
 
