@@ -1,10 +1,16 @@
 N = 1024;
 
-dBSNR = 10;
-errorRate = SNRToErrorRate(N,dBSNR)
+% dBSNR = 0;
+% errorRate = SNRToErrorRate(N,dBSNR);
+SNR = zeros(1,10,'double');
+error = zeros(1,10,'double');
+for i = 1:10
+    SNR(i) = (i-1)*5;
+    error(i) = SNRToErrorRate(N,SNR(i));
+end
 
-% plot(dBSNR, errorRate)
-% title("plot of errorRate against dBSNR")
-% xlabel("dBSNR");
-% ylabel("errorRate");
-% grid on
+plot(SNR, error)
+title("plot of errorRate against dBSNR")
+xlabel("dBSNR");
+ylabel("errorRate");
+grid on
