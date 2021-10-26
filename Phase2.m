@@ -13,7 +13,7 @@ signalTime = fs*N/dataRate + 1; %WHY PLUS 1?
 freqz(b,a);
 
 t = 0:1/fs:N/dataRate; 
-carrier = 5 .* cos(2*pi*fc*t); %amplitude = 5?
+carrier = cos(2*pi*fc*t); %amplitude = 5?
 plot(carrier);
 
 
