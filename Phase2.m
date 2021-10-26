@@ -6,18 +6,18 @@ data = randi([0,1], [1,N]);
 
 fc = 10000; %carrier freq
 dataRate = 1000;
+fs = fc * 16; %sampling freq
+t = 0:1/fs:N/dataRate;
+carrier = cos(2*pi*fc*t);
+numSample = fs*N/dataRate + 1;
 
-OOK_mod_signal = OOK(data, fc, dataRate, N);
-l = length(OOK_mod_signal);
-noiseData = noise(l,dBSNR);
+OOK_mod_signal = OOK(data, carrier, numSample, fs, dataRate);
+noiseData = noise(numSample,dBSNR);
 OOK_noisy = signalAdd(OOK_mod_signal, noiseData);
+data = OOK_demod(OOK_noisy, carrier);
 
-
-% [b,a] = butter(6, 0.2); %6th order, 0.2 cutoff freq, lowpassfilter
-% freqz(b,a);
-% 
 % plot(OOK_mod_signal);
-plot(OOK_noisy);
+plot(data);
 xlim([0,1800]);
 
 % dataOut = filtfilt(b,a,data);
