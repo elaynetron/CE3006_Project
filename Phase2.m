@@ -29,11 +29,10 @@ for i = 1:10
     OOK_error(i) = checkBitErrorRate(OOK_received_data,dataStream);
     BPSK_error(i) = checkBitErrorRate(BPSK_received_data,dataStream);
 end
-
+hold on
 title("SNR vs ErrorRate")
 xlabel("dBSNR");
 ylabel("errorRate");
-hold on
 semilogy(dBSNR, OOK_error)
 semilogy(dBSNR, BPSK_error)
 hold off
