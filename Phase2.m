@@ -22,12 +22,12 @@ BPSK_error = zeros(1,10,'double');
 for i = 1:10
     dBSNR(i) = (i-1)*5;
     noiseData = noise(numSample,dBSNR(i));
-    OOK_noisy = signalAdd(OOK_mod_signal, noiseData);
-    BPSK_noisy = signalAdd(BPSK_mod_signal, noiseData);
-    OOK_received_data = demod(OOK_noisy, carrier);
-    BPSK_received_data = demod(BPSK_noisy, carrier);
-    OOK_error(i) = checkBitErrorRate(OOK_received_data,dataStream);
-    BPSK_error(i) = checkBitErrorRate(BPSK_received_data,dataStream);
+    OOK_rx = signalAdd(OOK_mod_signal, noiseData);
+    BPSK_rx = signalAdd(BPSK_mod_signal, noiseData);
+    OOK_demod_data = demod(OOK_rx, carrier);
+    BPSK_demod_data = demod(BPSK_rx, carrier);
+    OOK_error(i) = checkBitErrorRate(OOK_demod_data,dataStream);
+    BPSK_error(i) = checkBitErrorRate(BPSK_demod_data,dataStream);
 end
 hold on
 title("SNR vs ErrorRate")
