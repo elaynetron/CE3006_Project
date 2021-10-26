@@ -13,28 +13,28 @@ numSample = fs*N/dataRate + 1;
 
 dataStream = stretchData(data, numSample, dataRate, fs); 
 OOK_mod_signal = OOK(dataStream, carrier);
-
-% noiseData = noise(numSample,5);
-% 
-% BPSK_mod_signal = BPSK(dataStream, carrier);
-% BPSK_noisy = signalAdd(BPSK_mod_signal, noiseData);
-
+BPSK_mod_signal = BPSK(dataStream, carrier);
 
 
 dBSNR = zeros(1,10,'double');
-error = zeros(1,10,'double');
+OOK_error = zeros(1,10,'double');
+BPSK_error = zeros(1,10,'double');
 for i = 1:10
     dBSNR(i) = (i-1)*5;
     noiseData = noise(numSample,dBSNR(i));
     OOK_noisy = signalAdd(OOK_mod_signal, noiseData);
-    received_data = OOK_demod(OOK_noisy, carrier);
-    error(i) = checkBitErrorRate(received_data,dataStream);
+    BPSK_noisy = signalAdd(BPSK_mod_signal, noiseData);
+    OOK_received_data = demod(OOK_noisy, carrier);
+    BPSK_received_data = demod(BPSK_noisy, carrier);
+    OOK_error(i) = checkBitErrorRate(OOK_received_data,dataStream);
+    BPSK_error(i) = checkBitErrorRate(BPSK_received_data,dataStream);
 end
 
-
-
-semilogy(dBSNR, error)
-title("plot of errorRate against dBSNR")
+title("SNR vs ErrorRate")
 xlabel("dBSNR");
 ylabel("errorRate");
-grid on
+hold on
+semilogy(dBSNR, OOK_error)
+semilogy(dBSNR, BPSK_error)
+hold off
+legend('OOK','BPSK');
