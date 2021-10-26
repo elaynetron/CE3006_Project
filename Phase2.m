@@ -1,7 +1,5 @@
 N = 1024;
-% dBSNR = 5; %fixed SNR value
-% SNR = 10.^(dBSNR/10);
-% data = generateData(N,dBSNR);
+
 data = randi([0,1], [1,N]);
 
 fc = 10000; %carrier freq
