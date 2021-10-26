@@ -1,7 +1,5 @@
 
 %bpsk vs ook for linear
-%in here just  sub in the values for ook and bpsk
-
 N = 1024;
 
 data = randi([0,1], [1,N]);
@@ -9,7 +7,7 @@ data = randi([0,1], [1,N]);
 fc = 10000; %carrier freq
 dataRate = 1000;
 fs = fc * 16; %sampling freq
-t = 0:1/fs:((N*7)/4)/dataRate;%sampling time altered to fit encoding
+t = 0:1/fs:((N*7)/4)/dataRate;%sampling time altered to fit encoding, not sure if i should?
 carrier = cos(2*pi*fc*t);
 numSample = fs*N/dataRate + 1;
 
@@ -27,7 +25,7 @@ pol = cyclpoly(7,4);
 parmat=cyclgen(7,pol);
 genmat=gen2par(parmat);
 
-extension_vector = ones(1, fs/dataRate);
+extension_vector = ones(1, fs/dataRate);%remove this?
 
 %generate linear encoded version of the data, genmat used for linear 
 linear_code_bin_en_ook=encode(data,7,4,'linear/binary',genmat);
