@@ -14,12 +14,8 @@ numSample = fs*N/dataRate + 1;
 dataStream = stretchData(data, numSample, dataRate, fs); 
 OOK_mod_signal = OOK(dataStream, carrier);
 
-% noiseData = noise(numSample,5);
-% 
-% BPSK_mod_signal = BPSK(dataStream, carrier);
-% BPSK_noisy = signalAdd(BPSK_mod_signal, noiseData);
-
-
+BPSK_mod_signal = BPSK(dataStream, carrier);
+OOK_noisy = signalAdd(OOK_mod_signal, noiseData);
 
 dBSNR = zeros(1,10,'double');
 error = zeros(1,10,'double');
