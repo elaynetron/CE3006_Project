@@ -8,6 +8,7 @@ for i = 1:11
     SNR(i) = (i-1)*5;
     error(i) = SNRToErrorRate(N,SNR(i));
 end
+%TESTING
 
 plot(SNR, error)
 title("plot of errorRate against dBSNR")
