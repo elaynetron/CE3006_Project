@@ -4,7 +4,7 @@ N = 1024;
 % errorRate = SNRToErrorRate(N,dBSNR);
 SNR = zeros(1,10,'double');
 error = zeros(1,10,'double');
-for i = 1:10
+for i = 1:11
     SNR(i) = (i-1)*5;
     error(i) = SNRToErrorRate(N,SNR(i));
 end
