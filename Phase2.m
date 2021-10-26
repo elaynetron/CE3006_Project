@@ -11,13 +11,13 @@ t = 0:1/fs:N/dataRate;
 carrier = cos(2*pi*fc*t);
 numSample = fs*N/dataRate + 1;
 
-OOK_mod_signal = OOK(data, carrier, numSample, fs, dataRate);
+dataStream = stretchData(data, numSample, dataRate, fs); 
+OOK_mod_signal = OOK(dataStream, carrier);
 noiseData = noise(numSample,dBSNR);
 OOK_noisy = signalAdd(OOK_mod_signal, noiseData);
-data = OOK_demod(OOK_noisy, carrier);
+received_data = OOK_demod(OOK_noisy, carrier);
+OOK_error = checkBitErrorRate(received_data,dataStream)
 
 % plot(OOK_mod_signal);
-plot(data);
-xlim([0,1800]);
-
-% dataOut = filtfilt(b,a,data);
+% plot(data);
+% xlim([0,1800]);
