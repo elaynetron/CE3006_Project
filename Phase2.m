@@ -14,11 +14,6 @@ numSample = fs*N/dataRate + 1;
 dataStream = stretchData(data, numSample, dataRate, fs); 
 OOK_mod_signal = OOK(dataStream, carrier);
 
-noiseData = noise(numSample,dBSNR);
-OOK_noisy = signalAdd(OOK_mod_signal, noiseData);
-received_data = OOK_demod(OOK_noisy, carrier);
-OOK_error = checkBitErrorRate(received_data,dataStream);
-
 dBSNR = zeros(1,10,'double');
 error = zeros(1,10,'double');
 for i = 1:10
