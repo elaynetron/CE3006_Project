@@ -24,9 +24,9 @@ encoded_data = kron(encoded_data, extension_vector);
 OOK_mod_signal = OOK(encoded_data, carrier_enc);
 BPSK_mod_signal = BPSK(encoded_data, carrier_enc);
 
-dBSNR = zeros(1,11,'double');
-linear_OOK_error = zeros(1,11,'double');
-linear_BPSK_error = zeros(1,11,'double');
+dBSNR = zeros(1,10,'double');
+linear_OOK_error = zeros(1,10,'double');
+linear_BPSK_error = zeros(1,10,'double');
 
 for i = 1:11
     dBSNR(i) = (i-1)*5;
@@ -76,9 +76,9 @@ encoded_data = kron(encoded_data, extension_vector);
 OOK_mod_signal = OOK(encoded_data, carrier_enc);
 BPSK_mod_signal = BPSK(encoded_data, carrier_enc);
 
-dBSNR = zeros(1,11,'double');
-hamming_OOK_error = zeros(1,11,'double');
-hamming_BPSK_error = zeros(1,11,'double');
+dBSNR = zeros(1,10,'double');
+hamming_OOK_error = zeros(1,10,'double');
+hamming_BPSK_error = zeros(1,10,'double');
 
 for i = 1:11
     dBSNR(i) = (i-1)*5;
@@ -131,9 +131,9 @@ encoded_data = kron(encoded_data, extension_vector);
 OOK_mod_signal = OOK(encoded_data, carrier_enc);
 BPSK_mod_signal = BPSK(encoded_data, carrier_enc);
 
-dBSNR = zeros(1,11,'double');
-cyclic_OOK_error = zeros(1,11,'double');
-cyclic_BPSK_error = zeros(1,11,'double');
+dBSNR = zeros(1,10,'double');
+cyclic_OOK_error = zeros(1,10,'double');
+cyclic_BPSK_error = zeros(1,10,'double');
 
 for i = 1:11
     dBSNR(i) = (i-1)*5;
