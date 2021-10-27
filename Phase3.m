@@ -9,7 +9,7 @@ dataRate = 1000;
 fs = fc * 16; %sampling freq
 encoded_bits=N*7/4
 
-t_enc = 1/(2*fs):1/fs:encoded_bits/dataRate;%sampling time altered to fit encoding
+t_enc = 1/(2*fs):1/fs:encoded_bits/dataRate;%sampling time altered to fit encoding, vector:increment
 carrier_enc = cos(2*pi*fc*t_enc);
 siglength_enc=fs*encoded_bits/dataRate + 1;
 
@@ -30,7 +30,7 @@ poly = cyclpoly(7,4);
 parmat=cyclgen(7,poly);
 genmat=gen2par(parmat);
 
-%extension_vector = ones(1, fs/dataRate);
+extension_vector = ones(1, fs/dataRate);
 
 %generate linear encoded version of the data, genmat used for linear 
 linear_code_bin_en_ook=encode(data,7,4,'linear/binary',genmat);
@@ -42,7 +42,7 @@ sampled_ook = sampled_input_ook .* carrier_enc;
 x=1
 for i = 1:10
     dBSNR(i) = (i-1)*5;
-    noiseData = noise(numSample,dBSNR(i));
+    noiseData = noise_phase3(numSample,fs,dataRate,dBSNR(i));
     OOK_rx = sampled_ook +noiseData%insert encoded data
     %BPSK_rx = signalAdd(sampled_bpsk, noiseData);
     OOK_demod_data = demod(OOK_rx, carrier);
