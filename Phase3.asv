@@ -1,4 +1,4 @@
-[OOK_error, BPSK_error] = Phase2();
+OOK_error, 
 
 % Linear - OOK and BPSK
 N = 1024;
@@ -44,6 +44,16 @@ for i = 1:11
     linear_BPSK_error(i) = checkBitErrorRate(BPSK_demod_data, data);
 end
 
+hold on
+title("SNR vs ErrorRate")
+xlabel("dBSNR");
+ylabel("errorRate");
+semilogy(dBSNR, linear_OOK_error)
+semilogy(dBSNR, linear_BPSK_error)
+hold off
+legend('linear_OOK','linear_BPSK');
+
+
 % -------------------------------------------
 % Hamming - OOK and BPSK
 N = 1024;
@@ -85,6 +95,15 @@ for i = 1:11
     hamming_OOK_error(i) = checkBitErrorRate(OOK_demod_data, data);
     hamming_BPSK_error(i) = checkBitErrorRate(BPSK_demod_data, data);
 end
+
+hold on
+title("SNR vs ErrorRate")
+xlabel("dBSNR");
+ylabel("errorRate");
+semilogy(dBSNR, hamming_OOK_error)
+semilogy(dBSNR, hamming_BPSK_error)
+hold off
+legend('hamming_OOK','hamming_BPSK');
 
 
 % -------------------------------------------
@@ -132,20 +151,16 @@ for i = 1:11
     cyclic_BPSK_error(i) = checkBitErrorRate(BPSK_demod_data, data);
 end
 
-
-%------------------------------------------
-%Graph generation
 hold on
 title("SNR vs ErrorRate")
 xlabel("dBSNR");
 ylabel("errorRate");
-semilogy(dBSNR, OOK_error, '--', 'LineWidth', 2, 'DisplayName', 'OOK w/o encoding')
-semilogy(dBSNR, BPSK_error, '--', 'LineWidth', 2, 'DisplayName', 'BPSK w/o encoding')
-semilogy(dBSNR, linear_OOK_error, 'DisplayName', 'Linear OSK')
-semilogy(dBSNR, linear_BPSK_error, 'DisplayName', 'Linear BPSK')
-semilogy(dBSNR, hamming_OOK_error,'DisplayName', 'Hamming OSK')
-semilogy(dBSNR, hamming_BPSK_error, 'DisplayName', 'Hamming BPSK')
-semilogy(dBSNR, cyclic_OOK_error, 'DisplayName', 'Cyclic OOK')
-semilogy(dBSNR, cyclic_BPSK_error, 'DisplayName', 'Cyclic BPSK')
+semilogy(dBSNR, linear_OOK_error)
+semilogy(dBSNR, linear_BPSK_error)
+semilogy(dBSNR, hamming_OOK_error)
+semilogy(dBSNR, hamming_BPSK_error)
+semilogy(dBSNR, cyclic_OOK_error)
+semilogy(dBSNR, cyclic_BPSK_error)
 hold off
+legend('linear OOK error',  'linear BPSK error', 'hamming OOK error', 'hamming BPSK error', 'cyclic OOK','cyclic BPSK');
 clear all;
