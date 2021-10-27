@@ -6,7 +6,7 @@ S = 1; %Signal Value
 SNR = 10^(dBSNR/10); % 10dB is 10S/N
 noiseVariance = S/SNR;
 
-noiseData = randn(1,N*(fs/datarate) *7/4) * sqrt(noiseVariance);
+noiseData = randn(1,N*7/4) * sqrt(noiseVariance);
 
 end
 

@@ -14,7 +14,7 @@ carrier_enc = cos(2*pi*fc*t_enc);
 siglength_enc=fs*encoded_bits/dataRate + 1;
 
 %SNR = (10.^(SNR_dB/10));
-numSample = fs*N/dataRate + 1;
+numSample = fs*N/dataRate;
 
 %dataStream = stretchData(data, numSample, dataRate, fs); 
 %OOK_mod_signal = OOK(dataStream, carrier_enc);
