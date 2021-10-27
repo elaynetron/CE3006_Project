@@ -5,9 +5,10 @@ data = randi([0,1], [1,N]);
 fc = 10000; %carrier freq
 dataRate = 1000;
 fs = fc * 16; %sampling freq
-t = 0:1/fs:N/dataRate;
+%to start at where sampling interval starts
+t = 1/(2*fs):1/fs:N/dataRate; 
 carrier = cos(2*pi*fc*t);
-numSample = fs*N/dataRate + 1;
+numSample = fs*N/dataRate;
 
 dataStream = stretchData(data, numSample, dataRate, fs); 
 OOK_mod_signal = OOK(dataStream, carrier);
