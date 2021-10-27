@@ -1,6 +1,5 @@
 function thresholdOut = threshold(receivedSig, thresholdValue)
-%UNTITLED6 Summary of this function goes here
-%   Detailed explanation goes here
+% generate threshold output vector/array
 
 thresholdOut(receivedSig >= thresholdValue) = 1;
 thresholdOut(receivedSig < thresholdValue) = 0;

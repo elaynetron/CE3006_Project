@@ -1,8 +1,7 @@
 function addOut = signalAdd(sig1,sig2)
-%UNTITLED8 Summary of this function goes here
-%   Detailed explanation goes here
+% Add signals together
 
-addOut = sig1 + sig2;
+    addOut = sig1 + sig2;
 
 end
 

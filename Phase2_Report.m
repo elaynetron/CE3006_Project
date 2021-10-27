@@ -1,3 +1,5 @@
+% Same as phase 2 - but to generate images for report
+
 N = 1024;
 dBSNR = 5; %fixed SNR value
 
@@ -57,4 +59,3 @@ semilogy(dBSNR, OOK_error)
 semilogy(dBSNR, BPSK_error)
 legend('OOK','BPSK')
 hold off
-

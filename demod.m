@@ -1,10 +1,11 @@
 function data = demod(receivedSig, carrier)
-%OOK_DEMOD Summary of this function goes here
-%   Detailed explanation goes here
-% sigA is the signal after being multiplied with twice of carrier
+% OOK Demodulation
+    % sigA is the demodulated signal
     sigA = receivedSig .* 2 .* carrier;
-    [b,a] = butter(6, 0.2); %6th order, 0.2 cutoff freq, lowpassfilter
+    % pass through low pass filter - 6th order, 0.2 cutoff freq
+    [b,a] = butter(6, 0.2);
     filteredSig = filtfilt(b, a, sigA);
+    % generate output data to be compared, using threshold
     data = threshold(filteredSig, 0.5);
 end
 

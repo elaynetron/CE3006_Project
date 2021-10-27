@@ -1,7 +1,6 @@
 function signal = OOK(dataStream, carrier)
-%OOK Summary of this function goes here
-%   Detailed explanation goes here
+%OOK Modulation
 
-signal = dataStream .* carrier;
+    signal = dataStream .* carrier;
 end
 
