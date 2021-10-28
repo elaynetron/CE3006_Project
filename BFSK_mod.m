@@ -1,6 +1,5 @@
 function signal = BFSK_mod(dataStream, carrier1, carrier2)
-%BFSK_MOD Summary of this function goes here
-%   Detailed explanation goes here
+% BFSK Modulation
 signal = zeros(1,length(dataStream),'double');
 
 for i = 1:length(dataStream)
