@@ -5,11 +5,10 @@ signal = zeros(1,length(dataStream),'double');
 
 for i = 1:length(dataStream)
     if (dataStream(i))
-        temp = carrier2;
+        signal(i) = carrier2(i);
     else
-        temp = carrier1;
+        signal(i) = carrier1(i);
     end
-    signal = temp;
 end
 end
 
