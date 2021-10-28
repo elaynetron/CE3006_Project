@@ -1,5 +1,9 @@
-N = 1024;
+clc;
+clear all;
+close all;
 
+N = 1024;
+dBSNR = 5;
 data = randi([0,1], [1,N]);
 
 fc1 = 10000; %carrier freq
@@ -14,5 +18,17 @@ numSample = fs*N/dataRate;
 
 dataStream = stretchData(data, numSample, dataRate, fs);
 BFSK_mod_signal = BFSK_mod(dataStream, carrier1, carrier2);
-plot(BFSK_mod_signal)
-xlim([0,2000])
+
+noiseData = noise(numSample, dBSNR);
+BFSK_rx = signalAdd(BFSK_mod_signal, noiseData);
+% data = BFSK_demod(BFSK_rx, carrier1, carrier2, t);
+signal1 = BFSK_rx .* carrier1;
+signal2 = BFSK_rx .* carrier2;
+
+for i = 1:length(dataStream)
+    integral1 = trapz(t,signal1);
+    integral2 = trapz(t,signal2);
+
+    demod_signal = integral2 - integral1;
+    data(i) = threshold(demod_signal, 0);
+end
