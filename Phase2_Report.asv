@@ -40,13 +40,13 @@ noiseData = noise(numSample,dBSNR);
 
 OOK_rx = signalAdd(OOK_mod_signal, noiseData);
 %ax5 = nexttile;
-%title(ax5,"Received OOK");
-%plot(ax5, OOK_rx);
+title(ax5,"Received OOK");
+plot(ax5, OOK_rx);
 
 BPSK_rx = signalAdd(BPSK_mod_signal, noiseData);
-%ax6 = nexttile;
-%title(ax6,"Received BPSK");
-%plot(ax6, BPSK_rx);
+ax6 = nexttile;
+title(ax6,"Received BPSK");
+plot(ax6, BPSK_rx);
 
 OOK_demod_data = demod(OOK_rx, carrier);
 ax7 = nexttile;
