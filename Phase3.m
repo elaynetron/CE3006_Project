@@ -139,13 +139,16 @@ hold on
 title("SNR vs ErrorRate")
 xlabel("dBSNR");
 ylabel("errorRate");
-semilogy(dBSNR, OOK_error, '--', 'LineWidth', 2, 'DisplayName', 'OOK w/o encoding')
-semilogy(dBSNR, BPSK_error, '--', 'LineWidth', 2, 'DisplayName', 'BPSK w/o encoding')
-semilogy(dBSNR, linear_OOK_error, 'DisplayName', 'Linear OSK')
-semilogy(dBSNR, linear_BPSK_error, 'DisplayName', 'Linear BPSK')
+%semilogy(dBSNR, OOK_error, '--', 'LineWidth', 2, 'DisplayName', 'OOK w/o encoding')
+%semilogy(dBSNR, BPSK_error, '--', 'LineWidth', 2, 'DisplayName', 'BPSK w/o encoding')
+
+%semilogy(dBSNR, linear_OOK_error, 'DisplayName', 'Linear OOK')
+%semilogy(dBSNR, linear_BPSK_error, 'DisplayName', 'Linear BPSK')
+
 semilogy(dBSNR, hamming_OOK_error,'DisplayName', 'Hamming OSK')
 semilogy(dBSNR, hamming_BPSK_error, 'DisplayName', 'Hamming BPSK')
-semilogy(dBSNR, cyclic_OOK_error, 'DisplayName', 'Cyclic OOK')
-semilogy(dBSNR, cyclic_BPSK_error, 'DisplayName', 'Cyclic BPSK')
+
+%semilogy(dBSNR, cyclic_OOK_error, 'DisplayName', 'Cyclic OOK')
+%semilogy(dBSNR, cyclic_BPSK_error, 'DisplayName', 'Cyclic BPSK')
 hold off
 clear all;
