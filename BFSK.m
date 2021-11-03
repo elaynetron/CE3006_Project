@@ -17,6 +17,10 @@ carrier2 = cos(2*pi*fc2*t);
 numSample = fs*N/dataRate;
 
 dataStream = stretchData(data, numSample, dataRate, fs);
+figure(1)
+plot(dataStream)
+xlim([0 2000])
+
 BFSK_mod_signal = BFSK_mod(dataStream, carrier1, carrier2);
 
 noiseData = noise(numSample, dBSNR);
@@ -33,5 +37,8 @@ filteredZeros = filtfilt(b0,a0,BFSK_rx);
 [upperZeros, lowerZeros] = envelope(filteredZeros, 10, 'peak');
 
 filteredBFSK = upperOnes - upperZeros;
+figure(2)
+plot(filteredBFSK)
+xlim([0 2000])
 bitError = checkBitErrorRate(filteredBFSK, dataStream);
 bitError
