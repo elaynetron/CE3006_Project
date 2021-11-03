@@ -3,7 +3,7 @@ clear all;
 close all;
 
 N = 1024;
-dBSNR = 5;
+dBSNR = 10;
 data = randi([0,1], [1,N]);
 
 fc1 = 10000; %carrier freq
@@ -19,7 +19,7 @@ numSample = fs*N/dataRate;
 dataStream = stretchData(data, numSample, dataRate, fs);
 figure(1)
 plot(dataStream)
-xlim([0 2000])
+xlim([0 5000])
 
 BFSK_mod_signal = BFSK_mod(dataStream, carrier1, carrier2);
 
@@ -39,6 +39,6 @@ filteredZeros = filtfilt(b0,a0,BFSK_rx);
 filteredBFSK = upperOnes - upperZeros;
 figure(2)
 plot(filteredBFSK)
-xlim([0 2000])
+xlim([0 5000])
 bitError = checkBitErrorRate(filteredBFSK, dataStream);
 bitError
