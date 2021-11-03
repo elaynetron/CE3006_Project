@@ -1,4 +1,5 @@
 [OOK_error, BPSK_error] = Phase2();
+BFSK_error = BFSK();
 
 % Linear - OOK and BPSK
 N = 1024;
@@ -141,6 +142,7 @@ xlabel("dBSNR");
 ylabel("errorRate");
 %semilogy(dBSNR, OOK_error, '--', 'LineWidth', 2, 'DisplayName', 'OOK w/o encoding')
 %semilogy(dBSNR, BPSK_error, '--', 'LineWidth', 2, 'DisplayName', 'BPSK w/o encoding')
+semilogy(dBSNR, BFSK_error, 'DisplayName', 'BFSK')
 
 %semilogy(dBSNR, linear_OOK_error, 'DisplayName', 'Linear OOK')
 %semilogy(dBSNR, linear_BPSK_error, 'DisplayName', 'Linear BPSK')

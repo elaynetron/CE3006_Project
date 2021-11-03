@@ -1,6 +1,11 @@
-N = 1024;
+clc;
+clear all;
+close all;
 
+N = 1024;
+%dBSNR = 5;
 data = randi([0,1], [1,N]);
+ampl = 5;
 
 fc1 = 10000; %carrier freq
 fc2 = 2 * fc1;
@@ -14,19 +19,38 @@ numSample = fs*N/dataRate;
 
 dataStream = stretchData(data, numSample, dataRate, fs);
 BFSK_mod_signal = BFSK_mod(dataStream, carrier1, carrier2);
-plot(BFSK_mod_signal)
-xlim([0,2000])
 
+% pass through low pass filter - 6th order, 0.2 cutoff freq
+[b,a] = butter(6, 0.2);
+[bhigh, ahigh] = butter(6, 0.2, "high");
+
+dBSNR = zeros(1,10,'double');
+BFSK_error = zeros(1,10,'double');
 for i = 1:11
     dBSNR(i) = (i-1)*5;
     noiseData = noise(numSample, dBSNR(i));
-    BFSK_r = signalAdd(OOK_mod_signal, noiseData);
-    BPSK_rx = signalAdd(BPSK_mod_signal, noiseData);
-    OOK_demod_data = demod_phase3(OOK_rx, encoded_bits, fs, dataRate, carrier_enc);
-    BPSK_demod_data = demod_phase3(BPSK_rx, encoded_bits, fs, dataRate, carrier_enc);
+    BFSK_rx = signalAdd(BFSK_mod_signal, noiseData);
 
-    OOK_demod_data = decode(OOK_demod_data,7,4,'linear/binary',genmat);
-    BPSK_demod_data = decode(BPSK_demod_data,7,4,'linear/binary',genmat);
-    linear_OOK_error(i) = checkBitErrorRate(OOK_demod_data, data);
-    linear_BPSK_error(i) = checkBitErrorRate(BPSK_demod_data, data);
+    % Demodulation
+    % LPF
+    BFSK_lowfilt = filtfilt(b, a, BFSK_rx);
+    BFSK_highfilt = filtfilt(bhigh, ahigh, BFSK_rx);
+    % Square-Law Device
+    BFSK_lowsl = BFSK_lowfilt .^ 2;
+    BFSK_highsl = BFSK_highfilt .^ 2;
+    BFSK_sl = BFSK_lowsl - BFSK_highsl;
+    % Sample
+    BFSK_sample = zeros(1, N, 'double');
+    for k = 1:N
+        BFSK_sample(k) = BFSK_sl((2*k)*(fs/dataRate)/2);
+    end
+    BFSK_demod = threshold(BFSK_sample, 0);
+    BFSK_error(i) = checkBitErrorRate(BFSK_demod, data);
 end
+hold on
+title("SNR vs ErrorRate")
+xlabel("dBSNR");
+ylabel("errorRate");
+semilogy(dBSNR, BFSK_error, 'DisplayName', 'BFSK')
+hold off
+
