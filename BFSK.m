@@ -22,13 +22,16 @@ BFSK_mod_signal = BFSK_mod(dataStream, carrier1, carrier2);
 noiseData = noise(numSample, dBSNR);
 BFSK_rx = signalAdd(BFSK_mod_signal, noiseData);
 % data = BFSK_demod(BFSK_rx, carrier1, carrier2, t);
-signal1 = BFSK_rx .* carrier1;
-signal2 = BFSK_rx .* carrier2;
 
-for i = 1:length(dataStream)
-    integral1 = trapz(t,signal1);
-    integral2 = trapz(t,signal2);
+[b1,a1] = butter(6, [0.10,0.15], 'bandpass');
+[b0,a0] = butter(6, [0.05,0.08], 'bandpass');
 
-    demod_signal = integral2 - integral1;
-    data(i) = threshold(demod_signal, 0);
-end
+filteredOnes = filtfilt(b1,a1,BFSK_rx);
+filteredZeros = filtfilt(b0,a0,BFSK_rx);
+
+[upperOnes, lowerOnes] = envelope(filteredOnes, 10, 'peak');
+[upperZeros, lowerZeros] = envelope(filteredZeros, 10, 'peak');
+
+filteredBFSK = upperOnes - upperZeros;
+bitError = checkBitErrorRate(filteredBFSK, dataStream);
+bitError
