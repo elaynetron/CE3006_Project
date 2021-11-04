@@ -41,6 +41,7 @@ for i = 1:11
     filteredBFSK = upperOnes - upperZeros;
     bitError(i) = checkBitErrorRate(filteredBFSK, dataStream);
 end
+bitError
 title("SNR vs ErrorRate")
 xlabel("dBSNR");
 ylabel("errorRate");
